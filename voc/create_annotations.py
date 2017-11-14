@@ -13,7 +13,7 @@ from config import annotation_config
 
 _FOLDER_NODE = annotation_config["folder_node"]
 _ROOT_NODE = annotation_config["root_node"]
-_DATABASE_NAME = annotation_config["dataset"]
+_DATASET = annotation_config["dataset"]
 _CLASS = annotation_config["class"]
 _ANNOTATION = annotation_config["annotation"]
 _AUTHOR = annotation_config["author"]
@@ -103,7 +103,7 @@ def createXMLFile(attrs, width, height, filename):
 
     # create source node and it's childnode
     source_node = doc.createElement('source')
-    createChildNode(doc, 'database', _DATABASE_NAME, source_node)
+    createChildNode(doc, 'database', _DATASET, source_node)
     createChildNode(doc, 'annotation', _ANNOTATION, source_node)
     createChildNode(doc, 'image', 'flickr', source_node)
     createChildNode(doc, 'flickrid', 'NULL', source_node)
