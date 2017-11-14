@@ -21,12 +21,15 @@ def create_image_sets(train_annos, test_annos, voc_path):
     test_file = open(os.path.join(sets_dir, 'test.txt'), 'w')
 
     trainval_imgs = []
+    last_img = ''
     for anno in train_annos:
         current_img_name = anno.split(' ')[0].split('.')[0]
         if len(current_img_name) != name_length:
             print("name format error: {}".format(current_img_name))
             exit(-1)
-        trainval_imgs.append(current_img_name)
+        if current_img_name != last_img:
+            trainval_imgs.append(current_img_name)
+            last_img = current_img_name
     trainval_file.write('\n'.join(trainval_imgs))
 
     test_imgs = []
@@ -35,7 +38,9 @@ def create_image_sets(train_annos, test_annos, voc_path):
         if len(current_img_name) != name_length:
             print("name format error: {}".format(current_img_name))
             exit(-1)
-        test_imgs.append(current_img_name)
+        if current_img_name != last_img:
+            test_imgs.append(current_img_name)
+            last_img = current_img_name
     test_file.write('\n'.join(test_imgs))
 
     trainval_file.close()

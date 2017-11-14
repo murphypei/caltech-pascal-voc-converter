@@ -8,23 +8,22 @@ import os
 import xml.dom
 import xml.dom.minidom
 from PIL import Image
+from config import annotation_config
 
 
-_INDENT = ' ' * 4
-_NEW_LINE = '\n'
-_FOLDER_NODE = 'VOC2007'
-_ROOT_NODE = 'annotation'
-_DATABASE_NAME = 'Caltech'
-_CLASS = 'person'
-_ANNOTATION = 'PASCAL VOC2007'
-_AUTHOR = 'Rocco'
+_FOLDER_NODE = annotation_config["folder_node"]
+_ROOT_NODE = annotation_config["root_node"]
+_DATABASE_NAME = annotation_config["dataset"]
+_CLASS = annotation_config["class"]
+_ANNOTATION = annotation_config["annotation"]
+_AUTHOR = annotation_config["author"]
 
-_SEGMENTED = '0'
-_DIFFICULT = '0'
-_TRUNCATED = '0'
-_POSE = 'Unspecified'
+_SEGMENTED = annotation_config["segmented"]
+_DIFFICULT = annotation_config["difficult"]
+_TRUNCATED = annotation_config["truncated"]
+_POSE = annotation_config["pose"]
 
-_IMAGE_CHANNEL = 3
+_IMAGE_CHANNEL = annotation_config["channel"]
 
 
 # create node

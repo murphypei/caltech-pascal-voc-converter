@@ -7,7 +7,7 @@ from parse_annotations_json import parse
 from create_image_sets import create_image_sets
 from create_jpeg_images import create_jpeg_images
 from create_annotations import create_annotations
-from dataset_sets import train_set, test_set
+from config import train_set, test_set
 
 
 def create_voc(annos_json_path, src_img_path, dst_path):
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         exit(-1)
     annos_json_path = sys.argv[1]
     src_img_path = sys.argv[2]
-    voc_path = sys.argv[3]
+    dst_path = sys.argv[3]
     
     create_voc(annos_json_path, src_img_path, dst_path)
 
