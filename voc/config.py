@@ -17,7 +17,7 @@ annotation_config = {
     "folder_node": 'VOC2007',
     "root_node": 'annotation',
     "dataset": 'INRIA',
-    "class": 'person',
+    "class": 'pedestrian',
     "annotation": 'PASCAL VOC2007',
     "author": 'Rocco',
     "segmented": '0',
