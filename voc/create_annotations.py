@@ -8,26 +8,12 @@ import os
 import xml.dom
 import xml.dom.minidom
 from PIL import Image
-from config import annotation_config
 
-
-_FOLDER_NODE = annotation_config["folder_node"]
-_ROOT_NODE = annotation_config["root_node"]
-_DATASET = annotation_config["dataset"]
-_CLASS = annotation_config["class"]
-_ANNOTATION = annotation_config["annotation"]
-_AUTHOR = annotation_config["author"]
-
-_SEGMENTED = annotation_config["segmented"]
-_DIFFICULT = annotation_config["difficult"]
-_TRUNCATED = annotation_config["truncated"]
-_POSE = annotation_config["pose"]
-
-_IMAGE_CHANNEL = annotation_config["channel"]
+annotation_config = dict()
 
 
 # create node
-def createElementNode(doc, tag, attr):
+def _createElementNode(doc, tag, attr):
     # create a element node
     element_node = doc.createElement(tag)
 
@@ -41,32 +27,32 @@ def createElementNode(doc, tag, attr):
 
 
 # create a child node
-def createChildNode(doc, tag, attr, parent_node):
+def _createChildNode(doc, tag, attr, parent_node):
 
-    child_node = createElementNode(doc, tag, attr)
+    child_node = _createElementNode(doc, tag, attr)
     parent_node.appendChild(child_node)
 
 
 # create object node
-def createObjectNode(doc, attrs):
+def _createObjectNode(doc, attrs):
     object_node = doc.createElement('object')
-    createChildNode(doc, 'name', attrs['classification'], object_node)
-    createChildNode(doc, 'pose', _POSE, object_node)
-    createChildNode(doc, 'truncated', _TRUNCATED, object_node)
-    createChildNode(doc, 'difficult', _DIFFICULT, object_node)
+    _createChildNode(doc, 'name', attrs['classification'], object_node)
+    _createChildNode(doc, 'pose', annotation_config["pose"], object_node)
+    _createChildNode(doc, 'truncated', annotation_config["truncated"], object_node)
+    _createChildNode(doc, 'difficult', annotation_config["difficult"], object_node)
 
     bndbox_node = doc.createElement('bndbox')
-    createChildNode(doc, 'xmin', attrs['xmin'], bndbox_node)
-    createChildNode(doc, 'ymin', attrs['ymin'], bndbox_node)
-    createChildNode(doc, 'xmax', attrs['xmax'], bndbox_node)
-    createChildNode(doc, 'ymax', attrs['ymax'], bndbox_node)
+    _createChildNode(doc, 'xmin', attrs['xmin'], bndbox_node)
+    _createChildNode(doc, 'ymin', attrs['ymin'], bndbox_node)
+    _createChildNode(doc, 'xmax', attrs['xmax'], bndbox_node)
+    _createChildNode(doc, 'ymax', attrs['ymax'], bndbox_node)
     object_node.appendChild(bndbox_node)
 
     return object_node
 
 
 # write documentElement to xml file
-def writeXMLFile(doc, filename):
+def _writeXMLFile(doc, filename):
 
     tmpfile = open('tmp.xml', 'w')
     doc.writexml(tmpfile, addindent=' '*4, newl='\n', encoding='utf-8')
@@ -86,53 +72,56 @@ def writeXMLFile(doc, filename):
 
 
 # create xml file and write node info
-def createXMLFile(attrs, width, height, filename):
+def _createXMLFile(attrs, width, height, filename):
 
     # create doc object
     my_dom = xml.dom.getDOMImplementation()
-    doc = my_dom.createDocument(None, _ROOT_NODE, None)
+    doc = my_dom.createDocument(None, annotation_config["root_node"], None)
 
     # get root node
     root_node = doc.documentElement
 
     # create folder node
-    createChildNode(doc, 'folder', _FOLDER_NODE, root_node)
+    _createChildNode(doc, 'folder', annotation_config["folder_node"], root_node)
 
     # create filename node
-    createChildNode(doc, 'filename', attrs['name'], root_node)
+    _createChildNode(doc, 'filename', attrs['name'], root_node)
 
     # create source node and it's childnode
     source_node = doc.createElement('source')
-    createChildNode(doc, 'database', _DATASET, source_node)
-    createChildNode(doc, 'annotation', _ANNOTATION, source_node)
-    createChildNode(doc, 'image', 'flickr', source_node)
-    createChildNode(doc, 'flickrid', 'NULL', source_node)
+    _createChildNode(doc, 'database', annotation_config["dataset"], source_node)
+    _createChildNode(doc, 'annotation', annotation_config["annotation"], source_node)
+    _createChildNode(doc, 'image', 'flickr', source_node)
+    _createChildNode(doc, 'flickrid', 'NULL', source_node)
     root_node.appendChild(source_node)
 
     # create owner node and it's childnode
     owner_node = doc.createElement('owner')
-    createChildNode(doc, 'flickrid', 'NULL', owner_node)
-    createChildNode(doc, 'name', _AUTHOR, owner_node)
+    _createChildNode(doc, 'flickrid', 'NULL', owner_node)
+    _createChildNode(doc, 'name', annotation_config["author"], owner_node)
     root_node.appendChild(owner_node)
 
     # create size node and it's childnode
     size_node = doc.createElement('size')
-    createChildNode(doc, 'width', str(width), size_node)
-    createChildNode(doc, 'height', str(height), size_node)
-    createChildNode(doc, 'depth', str(_IMAGE_CHANNEL), size_node)
+    _createChildNode(doc, 'width', str(width), size_node)
+    _createChildNode(doc, 'height', str(height), size_node)
+    _createChildNode(doc, 'depth', str(annotation_config["channel"]), size_node)
     root_node.appendChild(size_node)
 
     # create segmented node
-    createChildNode(doc, 'segmented', _SEGMENTED, root_node)
+    _createChildNode(doc, 'segmented', annotation_config["segmented"], root_node)
 
     # create object node
-    object_node = createObjectNode(doc, attrs)
+    object_node = _createObjectNode(doc, attrs)
     root_node.appendChild(object_node)
 
-    writeXMLFile(doc, filename)
+    _writeXMLFile(doc, filename)
 
 
-def create_annotations(train_annos, test_annos, voc_path):
+def create_annotations(train_annos, test_annos, voc_path, anno_config):
+
+    global annotation_config
+    annotation_config = anno_config
 
     anno_dir = os.path.join(voc_path, 'Annotations')
     if not os.path.exists(anno_dir):
@@ -148,7 +137,7 @@ def create_annotations(train_annos, test_annos, voc_path):
         attrs['ymin'] = array[2].split('.')[0]
         attrs['xmax'] = array[3].split('.')[0]
         attrs['ymax'] = array[4].split('.')[0]
-        attrs['classification'] = _CLASS
+        attrs['classification'] = annotation_config["class"]
 
         # build xml file name
         xml_file_name = os.path.join(anno_dir, (attrs['name'].split('.'))[0] + '.xml')
@@ -159,10 +148,10 @@ def create_annotations(train_annos, test_annos, voc_path):
             existed_doc = xml.dom.minidom.parse(xml_file_name)
             root_node = existed_doc.documentElement
 
-            object_node = createObjectNode(existed_doc, attrs)
+            object_node = _createObjectNode(existed_doc, attrs)
             root_node.appendChild(object_node)
 
-            writeXMLFile(existed_doc, xml_file_name)
+            _writeXMLFile(existed_doc, xml_file_name)
 
         else:
             img_name = attrs['name']
@@ -171,4 +160,4 @@ def create_annotations(train_annos, test_annos, voc_path):
             img = Image.open(img_path)
             width, height = img.size
             # img.close()
-            createXMLFile(attrs, width, height, xml_file_name)
+            _createXMLFile(attrs, width, height, xml_file_name)
