@@ -1,4 +1,4 @@
-# Caltech Pedestrian Dataset Converter to VOC2007 Dataset format
+# Caltech Pedestrian Dataset Converter to VOC2007 format
 
 ## Requirements
 
