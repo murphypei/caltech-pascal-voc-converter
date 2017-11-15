@@ -9,7 +9,7 @@
 
 ## Usage (Caltech Pedestrian Dataset Example)
 
-1. **Prepare dataset**
+### 1. Prepare dataset
 
     Download caltech dataset and convert it to images and annotations.json.
 
@@ -23,7 +23,7 @@
 
     (Number of objects: 346621)
 
-2. **Draw and Test**
+### 2. Draw and Test
 
     You can draw bounding boxes in the images and get a video for checking.
 
@@ -31,7 +31,7 @@
     $ ./tests/test_plot_annotations.py
     ```
 
-3. **Create VOC2007 format dataset**
+### 3. Create VOC2007 format dataset
 
     Convert images to VOC2007 format dataset.
 
@@ -41,3 +41,7 @@
 
     * config your properties for VOC2007 annotations and train and test sets in `config.py`.
     * make voc_path dir empty is better.
+
+### 4. Complete VOC2007 dataset
+
+    Copy other dir from VOC2007 like: `local`, `results`...
