@@ -1,7 +1,5 @@
 # Caltech Pedestrian Dataset Converter to VOC2007 Dataset format
 
-============================
-
 ## Requirements
 
 - OpenCV 2.4.13
