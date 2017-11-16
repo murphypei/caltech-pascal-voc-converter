@@ -5,8 +5,10 @@
 input caltech video dataset path, convert annotations and videos to images.
 """
 
-import sys, os
-from caltech import convert_seqs, convert_annotations
+import sys
+import os
+from convert_annotations import convert_annotations
+from convert_seqs import convert_seqs
 
 if __name__ == "__main__":
 
