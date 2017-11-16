@@ -1,9 +1,11 @@
 #! /bin/bash
 
-if [ ! -d data-USA ]; then
-    mkdir data-USA
+DIR=$1
+
+if [ ! -d ${DIR}/data-USA ]; then
+    mkdir -p ${DIR}/data-USA
 fi
-cd data-USA
+cd d${DIR}/data-USA
 
 wget http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/datasets/USA/annotations.zip
 wget http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/datasets/USA/set00.tar
