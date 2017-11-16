@@ -54,7 +54,8 @@ def parse(json_file_path, dataset_config):
                     for obj in all_frames[idx]:
                         
                         # reasonable filter
-                        if dataset_config["version"] == "reasonable" and not caltech_reasonable_filter(obj):
+                        if dataset_config["version"] == "reasonable" and\
+                          not dataset_config["reasonable_filter"](obj):
                             continue
 
                         pos = obj["pos"]
@@ -84,8 +85,8 @@ def parse(json_file_path, dataset_config):
                     obj_num = len(all_frames[idx])
                     print("process {} {} object.".format(img_name, obj_num))
 
-    print("process all images done, train images: {}, train objests: {}, test images: {}, test objects: {}." \
-        .format(train_img_sum, train_obj_sum, test_img_sum, test_obj_sum, ))
+    print("process all images done\ntrain images: {}, train objests: {}\ntest images: {}, test objects: {}.".format(
+      train_img_sum, train_obj_sum, test_img_sum, test_obj_sum))
     train_annos = sort_by_name(train_annos)
     test_annos = sort_by_name(test_annos)
     return (train_annos, test_annos)
@@ -115,7 +116,7 @@ if __name__ == "__main__":
 
     anno_json = sys.argv[1]
     dataset = sys.argv[2]
-    dataset_config = dict()
+
     if dataset == 'all':
         dataset_config = caltech_config
         caltech_config["version"] = "all"
@@ -124,6 +125,8 @@ if __name__ == "__main__":
         caltech_config["version"] = "reasonable"
     elif dataset == 'inria':
         dataset_config = inria_config
+    elif dataset == 'eth':
+        dataset_config = 'eth'
     else:
         print("unidentify dataset input")
         exit(-1)

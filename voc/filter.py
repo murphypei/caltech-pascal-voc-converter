@@ -1,6 +1,4 @@
 #!/usr/bin/python
-
-
 '''
 def filter for caltech reasonable person object
 '''
@@ -75,3 +73,29 @@ def caltech_reasonable_filter(box):
         visibility_filter(box)
 
     return validity
+
+
+def eth_reasonable_filter(box):
+
+    def verity_bnds(pos):
+        bnds = [5, 5, 635, 475]
+        return pos[0] >= bnds[0] and pos[0] + pos[2] <= bnds[2] and pos[1] >= bnds[1] and pos[1] + pos[3] <= bnds[3]
+
+    height_min = 50
+    visiable_min = .65
+    pos = box['pos']
+    pos_v = box['posv']
+    occl = box['occl']
+
+    pos_area = pos[2] * pos[3]
+
+    if occl == 0 or not hasattr(pos_v, '__iter__') or all(x == 0 for x in pos_v):
+        visiable_ratio = 1
+    else:
+        pos_v_area = pos_v[2] * pos_v[3]
+        visiable_ratio = (pos_v_area / pos_area)
+
+    return label_filter(box, 'person') and\
+        visiable_ratio > visiable_min and\
+        pos[3] > height_min and\
+        verity_bnds(pos)

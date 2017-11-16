@@ -38,7 +38,6 @@ if __name__ == "__main__":
     dst_path = sys.argv[3]
 
     dataset = sys.argv[4]
-    dataset_config = dict()
     if dataset == 'all':
         dataset_config = caltech_config
         caltech_config["version"] = "all"
@@ -47,6 +46,8 @@ if __name__ == "__main__":
         caltech_config["version"] = "reasonable"
     elif dataset == 'inria':
         dataset_config = inria_config
+    elif dataset == 'eth':
+        dataset_config = 'eth'
     else:
         print("unidentify dataset input")
         exit(-1)
