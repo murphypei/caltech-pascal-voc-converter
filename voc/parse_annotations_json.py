@@ -20,8 +20,11 @@ def parse(json_file_path, dataset_config):
     train_set = dataset_config["train_set"]
     test_set = dataset_config["test_set"]
 
-    # for record object num
-    obj_sum = 0
+    # for record objects and iamges num
+    train_img_sum = 0
+    test_img_sum = 0
+    train_obj_sum = 0
+    test_obj_sum = 0
 
     with open(json_file_path, 'r') as json_file:
 
@@ -44,8 +47,10 @@ def parse(json_file_path, dataset_config):
 
                     # into a pedestrian object in the image
                     if len(all_frames[idx]) == 0:
-                        print img_name
+                        print("no object in: {}".format(img_name))
                         exit(-1)
+
+                    img_recorded_flag = False
                     for obj in all_frames[idx]:
                         
                         # reasonable filter
@@ -53,17 +58,25 @@ def parse(json_file_path, dataset_config):
                             continue
 
                         pos = obj["pos"]
-                        obj_sum += 1
                         pos[2] = pos[2] + pos[0]
                         pos[3] = pos[3] + pos[1]
                         pos = [str(i) for i in pos]
 
                         obj_anno = img_name + ' ' + ' '.join(pos)
 
+                        # record objects and images
                         if s in train_set:
                             train_annos.append(obj_anno)
+                            train_obj_sum += 1
+                            if not img_recorded_flag:
+                                train_img_sum += 1
+                                img_recorded_flag = True
                         elif s in test_set:
                             test_annos.append(obj_anno)
+                            test_obj_sum += 1
+                            if not img_recorded_flag:
+                                test_img_sum += 1
+                                img_recorded_flag = True
                         else:
                             print("unknown set error.")
                             exit(-1)
@@ -71,7 +84,8 @@ def parse(json_file_path, dataset_config):
                     obj_num = len(all_frames[idx])
                     print("process {} {} object.".format(img_name, obj_num))
 
-    print("process all {} objects done.".format(obj_sum))
+    print("process all images done, train images: {}, train objests: {}, test images: {}, test objects: {}." \
+        .format(train_img_sum, train_obj_sum, test_img_sum, test_obj_sum, ))
     train_annos = sort_by_name(train_annos)
     test_annos = sort_by_name(test_annos)
     return (train_annos, test_annos)
