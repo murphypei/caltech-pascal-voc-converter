@@ -80,8 +80,6 @@ def convert_seqs(path):
 
 if __name__ == "__main__":
 
-    path = 'data'
-
     if len(sys.argv) > 2:
         print "Error, {} args input, pls input dataset path only !".format(len(sys.argv))
         exit(-1)
