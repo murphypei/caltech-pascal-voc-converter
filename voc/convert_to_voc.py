@@ -7,7 +7,7 @@ from parse_annotations_json import parse
 from create_image_sets import create_image_sets
 from create_jpeg_images import create_jpeg_images
 from create_annotations import create_annotations
-from config import caltech_config, inria_config
+from config import caltech_config, inria_config, eth_config
 
 
 def create_voc(annos_json_path, src_img_path, dst_path, dataset_config):
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     elif dataset == 'inria':
         dataset_config = inria_config
     elif dataset == 'eth':
-        dataset_config = 'eth'
+        dataset_config = eth_config
     else:
         print("unidentify dataset input")
         exit(-1)

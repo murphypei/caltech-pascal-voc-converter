@@ -8,7 +8,7 @@ return train and test images annotations sorted list.
 
 import json
 import sys
-from config import caltech_config, inria_config
+from config import caltech_config, inria_config, eth_config
 from filter import caltech_reasonable_filter
 
 
@@ -126,12 +126,12 @@ if __name__ == "__main__":
     elif dataset == 'inria':
         dataset_config = inria_config
     elif dataset == 'eth':
-        dataset_config = 'eth'
+        dataset_config = eth_config
     else:
         print("unidentify dataset input")
         exit(-1)
 
-    train_annos, test_annos = parse(sys.argv[1], dataset_config)
+    train_annos, test_annos = parse(anno_json, dataset_config)
 
     # print(train_annos)
     # print(test_annos)

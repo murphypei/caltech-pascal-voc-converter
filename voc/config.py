@@ -60,8 +60,8 @@ inria_config = {
 # for all object
 eth_config = {
     # caltech dataset
-    "train_set": set([]),
-    "test_set": set(["set00", "set01", "set02"]),
+    "train_set": set(["set00", "set01"]),
+    "test_set": set(["set02"]),
 
     "version": "reasonable",     # default
     "reasonable_filter": eth_reasonable_filter,

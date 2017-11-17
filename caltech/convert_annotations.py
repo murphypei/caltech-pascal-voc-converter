@@ -42,8 +42,10 @@ def convert_annotations(path):
             data[set_name][video_name]['frames'] = defaultdict(list)
 
             n_obj = 0
+
             for frame_id, obj in enumerate(objLists):
-                if len(obj) > 0:
+
+                if len(obj) > 0 and obj.dtype.names:
                     for id, pos, occl, lock, posv in zip(
                             obj['id'][0], obj['pos'][0], obj['occl'][0],
                             obj['lock'][0], obj['posv'][0]):
