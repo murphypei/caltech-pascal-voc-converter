@@ -26,6 +26,7 @@ def parse(json_file_path, dataset_config):
     train_obj_sum = 0
     test_obj_sum = 0
 
+
     with open(json_file_path, 'r') as json_file:
 
         data = json.load(json_file)
@@ -35,14 +36,20 @@ def parse(json_file_path, dataset_config):
             print "set for: {}".format(s)
             # into a video
             for v in data[s].keys():
-                print "seq video {} in {}".format(v, s)
                 frame_num = data[s][v]["nFrame"]
-                print("frame numbers: {}".format(frame_num))
-
+                print("* * * start process {}_{}, frame numbers: {} ...".format(s, v, frame_num))
                 all_frames = data[s][v]["frames"]
                 # into a frame(also a image)
                 for idx in all_frames.keys():
+                    
+                    # fps interval 
+                    if dataset_config["fps_interval"] != 0 and\
+                      not (int(idx) >= dataset_config["fps_interval"] - 1 and\
+                      int(idx) % dataset_config["fps_interval"] == dataset_config["fps_interval"] - 1):   # Caltech dataset fps interval
+                        continue
+
                     img_name = "{}_{}_{}.png".format(s, v, idx)
+                    print("process: {}".format(img_name))
                     # print("process image: {}".format(img_name))
 
                     # into a pedestrian object in the image
@@ -84,7 +91,7 @@ def parse(json_file_path, dataset_config):
 
                     obj_num = len(all_frames[idx])
                     print("process {} {} object.".format(img_name, obj_num))
-
+                print("* * * end process {}_{}...".format(v, s))
     print("process all images done\ntrain images: {}, train objests: {}\ntest images: {}, test objects: {}.".format(
       train_img_sum, train_obj_sum, test_img_sum, test_obj_sum))
     train_annos = sort_by_name(train_annos)

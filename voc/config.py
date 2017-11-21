@@ -13,8 +13,9 @@ caltech_config = {
     "test_set": set(["set06", "set07", "set08", "set09", "set10"]),
 
     "version": "reasonable",     # default
-
     "reasonable_filter": caltech_reasonable_filter,    # reasonable filter
+
+    "fps_interval": 10,
 
     # set VOC xml annotations config
     "annotation_config": {
@@ -41,6 +42,8 @@ inria_config = {
     "version": "all",
     "reasonable_filter": None,
 
+    "fps_interval": 0,
+
     "annotation_config": {
         "folder_node": 'VOC2007',
         "root_node": 'annotation',
@@ -65,6 +68,8 @@ eth_config = {
 
     "version": "reasonable",     # default
     "reasonable_filter": eth_reasonable_filter,
+
+    "fps_interval": 0,
 
     # set VOC xml annotations config
     "annotation_config": {

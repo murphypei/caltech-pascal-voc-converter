@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# Usage: /path/to/voc/convert_voc.py /path/to/annotations.json /path/to/images  /path/to/dst_dir reasonable
+
 import os
 import sys
 from parse_annotations_json import parse
@@ -32,7 +34,7 @@ if __name__ == "__main__":
         exit(-1)
     src_img_path = sys.argv[2]
     if not os.path.exists(src_img_path):
-        print("Can't find image path: {}".format(src_img_path))
+        print("Can't find images path: {}".format(src_img_path))
         exit(-1)
 
     dst_path = sys.argv[3]
