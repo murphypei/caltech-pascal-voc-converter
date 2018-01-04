@@ -45,8 +45,7 @@ def parse(json_file_path, dataset_config):
                     # fps interval 
                     if dataset_config["fps_interval"] != 0 and\
                       not (int(idx) >= dataset_config["fps_interval"] - 1 and\
-                      int(idx) % dataset_config["fps_interval"] == dataset_config["fps_interval"] - 1):   # Caltech dataset fps interval
-                        continue
+                      int(idx) % dataset_config["fps_interval"] == dataset_config["fps_interval"] - 1):   
 
                     img_name = "{}_{}_{}.png".format(s, v, idx)
                     print("process: {}".format(img_name))
