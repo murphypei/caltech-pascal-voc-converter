@@ -36,7 +36,7 @@ $ ./tests/test_plot_annotations.py
 Convert images to VOC2007 format dataset.
 
 ```
-$ ./voc/convert_to_voc.py [annotations.json path] [images path] [voc save path] [dataset type]
+$ ./voc/convert_to_voc.py --anno [annotations.json path] --images [images path] --dst [voc save path] --dataset [dataset type]
 ```
 
 * config your properties for VOC2007 annotations and train and test sets in `config.py`.
