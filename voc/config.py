@@ -58,10 +58,9 @@ inria_config = {
     }
 }
 
-
-# for all object
+# eth dataset
 eth_reasonable_config = {
-    # caltech dataset
+
     "train_set": set(["set00", "set01"]),
     "test_set": set(["set02"]),
 

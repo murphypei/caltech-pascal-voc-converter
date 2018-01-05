@@ -33,7 +33,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description='Convert a dataset to vocdevkit format')
     parser.add_argument(
-        '--imags',
+        '--images',
         dest='src_img_path',
         help='source images dir path',
         default=None,

@@ -8,7 +8,6 @@ return train and test images annotations sorted list.
 
 import json
 import sys
-from config import caltech_config, inria_config, eth_config
 from filter import caltech_reasonable_filter
 
 
