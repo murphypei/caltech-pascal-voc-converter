@@ -6,8 +6,8 @@ configuration for different dataset
 
 from filter import caltech_reasonable_filter, eth_reasonable_filter
 
-# for all object
-caltech_config = {
+# for reasonable object
+caltech_reasonable_config = {
     # caltech dataset
     "train_set": set(["set00", "set01", "set02", "set03", "set04", "set05"]),
     "test_set": set(["set06", "set07", "set08", "set09", "set10"]),
@@ -15,14 +15,14 @@ caltech_config = {
     "version": "reasonable",     # default
     "reasonable_filter": caltech_reasonable_filter,    # reasonable filter
 
-    "fps_interval": 10,
+    "fps_interval": 0,
 
     # set VOC xml annotations config
     "annotation_config": {
         "folder_node": 'VOC2007',
         "root_node": 'annotation',
         "dataset": 'Caltech',
-        "class": 'pedestrian',
+        "class": 'person',
         "annotation": 'PASCAL VOC2007',
         "author": 'Rocco',
         "segmented": '0',
@@ -32,7 +32,6 @@ caltech_config = {
         "channel": 3
     }
 }
-
 
 # inria dataset
 inria_config = {
@@ -48,7 +47,7 @@ inria_config = {
         "folder_node": 'VOC2007',
         "root_node": 'annotation',
         "dataset": 'INRIA',
-        "class": 'pedestrian',
+        "class": 'person',
         "annotation": 'PASCAL VOC2007',
         "author": 'Rocco',
         "segmented": '0',
@@ -61,7 +60,7 @@ inria_config = {
 
 
 # for all object
-eth_config = {
+eth_reasonable_config = {
     # caltech dataset
     "train_set": set(["set00", "set01"]),
     "test_set": set(["set02"]),
@@ -76,7 +75,7 @@ eth_config = {
         "folder_node": 'VOC2007',
         "root_node": 'annotation',
         "dataset": 'ETH',
-        "class": 'pedestrian',
+        "class": 'person',
         "annotation": 'PASCAL VOC2007',
         "author": 'Rocco',
         "segmented": '0',

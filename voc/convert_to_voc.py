@@ -9,7 +9,7 @@ from parse_annotations_json import parse
 from create_image_sets import create_image_sets
 from create_jpeg_images import create_jpeg_images
 from create_annotations import create_annotations
-from config import caltech_config, inria_config, eth_config
+from config import caltech_reasonable_config, inria_config, eth_reasonable_config
 
 
 def create_voc(annos_json_path, src_img_path, dst_path, dataset_config):
@@ -40,16 +40,12 @@ if __name__ == "__main__":
     dst_path = sys.argv[3]
 
     dataset = sys.argv[4]
-    if dataset == 'all':
-        dataset_config = caltech_config
-        caltech_config["version"] = "all"
-    elif dataset == 'reasonable':
-        dataset_config = caltech_config
-        caltech_config["version"] = "reasonable"
+    if dataset == 'caltech_reasonable':
+        dataset_config = caltech_reasonable_config
     elif dataset == 'inria':
         dataset_config = inria_config
-    elif dataset == 'eth':
-        dataset_config = eth_config
+    elif dataset == 'eth_reasonable':
+        dataset_config = eth_reasonable_config
     else:
         print("unidentify dataset input")
         exit(-1)
