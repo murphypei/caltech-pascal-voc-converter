@@ -1,4 +1,4 @@
-# Caltech Pedestrian Dataset Converter to VOC2007 format
+# Caltech Pedestrian Dataset Converter to VOC2007 format for Faster R-CNN
 
 ## Requirements
 
@@ -11,7 +11,7 @@
 
 ### 1. Prepare dataset
 
-Download caltech dataset and convert it to images and annotations.json.
+Download caltech dataset, pick up images and annotations from videos.
 
 ```
 $ ./shells/download.sh
@@ -19,7 +19,7 @@ $ ./caltech/convert_annotations.py
 $ ./caltech/convert_seqs.py
 ```
 
-Each `.seq` movie is separated into `.png` images. Each image's filename is consisted of `{set**}_{V***}_{frame_num}.png`. According to [the official site](http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/), `set06`~`set10` are for test dataset, while the rest are for training dataset.
+Each `.seq` video is separated into `.png` images. Each image's filename is consisted of `{set**}_{V***}_{frame_num}.png`. According to [the official site](http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/), `set06`~`set10` are for test dataset, while the rest are for training dataset.
 
 (Number of objects: 346621)
 
