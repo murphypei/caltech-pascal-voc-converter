@@ -45,3 +45,8 @@ $ ./voc/convert_to_voc.py --anno [annotations.json path] --images [images path] 
 ### 4. Complete VOC2007 dataset
 
 Copy other dir from VOC2007 like: `local`, `results`...
+
+## Notice
+
+`./voc/config.py` is a configure file for different dataset.
+`./voc/filter.py` can add yourself filter for different interesting objects.
