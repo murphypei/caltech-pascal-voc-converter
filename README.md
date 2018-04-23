@@ -14,7 +14,7 @@
 Download caltech dataset, pick up images and annotations from videos.
 
 ```
-$ ./dataset-download/caltech-dataset-download.sh
+$ ./dataset-downloads/caltech-dataset-download.sh
 $ ./caltech-scripts/convert_annotations.py
 $ ./caltech-scripts/convert_seqs.py
 ```
