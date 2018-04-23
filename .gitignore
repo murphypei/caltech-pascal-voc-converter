@@ -7,8 +7,6 @@
 *.seq
 *.vbb
 
-data*
-plots
 .vscode
 
 annotations.json
