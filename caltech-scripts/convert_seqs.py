@@ -1,18 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-input caltech dataset path, convert seq video to images
-"""
-
 import os
-import sys
 import glob
 import cv2 as cv
 import struct
 
 
-def seq_to_images(dname, path, out_dir):
+
+
+def seq_to_images(dname,path):
     def read_header(ifile):
         feed = ifile.read(4)
         norpix = ifile.read(24)
@@ -23,11 +20,11 @@ def seq_to_images(dname, path, out_dir):
         params = [struct.unpack('@i', ifile.read(4))[0] for i in range(9)]
         fps = struct.unpack('@d', ifile.read(8))
         ifile.read(432)
-        image_ext = {100: 'raw', 102: 'jpg', 201: 'jpg', 1: 'png', 2: 'png'}
-        return {'w': params[0], 'h': params[1], 'bdepth': params[2],
-                'ext': image_ext[params[5]], 'format': params[5],
-                'size': params[4], 'true_size': params[8],
-                'num_frames': params[6]}
+        image_ext = {100:'raw', 102:'jpg', 201:'jpg', 1:'png', 2:'png'}
+        return {'w':params[0], 'h':params[1], 'bdepth':params[2],
+                'ext':image_ext[params[5]], 'format':params[5],
+                'size':params[4], 'true_size':params[8],
+                'num_frames':params[6]}
 
     assert path[-3:] == 'seq', path
     ifile = open(path, 'rb')
@@ -52,39 +49,30 @@ def seq_to_images(dname, path, out_dir):
         tmp_file = '/tmp/img%d.jpg' % i
         open(tmp_file, 'wb+').write(I)
         img = cv.imread(tmp_file)
-        # imgs.append(img)
-        save_img(dname, path, i, img, out_dir)
+        #imgs.append(img)
+        save_img(dname, fn, i, img)
 
     return i
 
 
-def save_img(dname, fn, i, frame, out_dir):
 
-    # print("I am in")
+
+def save_img(dname, fn, i, frame):
+    #print("I am in")
     cv.imwrite('{}/{}_{}_{}.png'.format(
         out_dir, os.path.basename(dname),
         os.path.basename(fn).split('.')[0], i), frame)
 
 
-def convert_seqs(path):
-    out_dir = os.path.join(path, 'images')
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir)
-    for dname in sorted(glob.glob(os.path.join(path, 'set*'))):
-        for fn in sorted(glob.glob('{}/*.seq'.format(dname))):
-            # cap = cv.VideoCapture(fn)
-            seq_to_images(dname, fn, out_dir)
 
-            print(fn)
+    
 
-
-if __name__ == "__main__":
-
-    if len(sys.argv) > 2:
-        print "Error, {} args input, pls input dataset path only !".format(len(sys.argv))
-        exit(-1)
-    elif len(sys.argv) == 2:
-        path = sys.argv[1]
-    print("input dataset path: " + path)
-
-    convert_seqs(path)
+out_dir = 'data/images'
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
+for dname in sorted(glob.glob('data/set*')):
+    for fn in sorted(glob.glob('{}/*.seq'.format(dname))):
+        #cap = cv.VideoCapture(fn)
+        seq_to_images(dname, fn)
+  
+        print(fn)

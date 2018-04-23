@@ -3,7 +3,7 @@
 ## Requirements
 
 - OpenCV 2.4.13
-- Python 2.7+, 3.4+, 3.5+
+- Python3.4+,
 - NumPy 1.10+
 - SciPy 0.16+
 
@@ -14,9 +14,9 @@
 Download caltech dataset, pick up images and annotations from videos.
 
 ```
-$ ./shells/download.sh
-$ ./caltech/convert_annotations.py
-$ ./caltech/convert_seqs.py
+$ ./dataset-download/caltech-dataset-download.sh
+$ ./caltech-scripts/convert_annotations.py
+$ ./caltech-scripts/convert_seqs.py
 ```
 
 Each `.seq` video is separated into `.png` images. Each image's filename is consisted of `{set**}_{V***}_{frame_num}.png`. According to [the official site](http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/), `set06`~`set10` are for test dataset, while the rest are for training dataset.
@@ -28,7 +28,7 @@ Each `.seq` video is separated into `.png` images. Each image's filename is cons
 You can draw bounding boxes in the images and get a video for checking.
 
 ```
-$ ./tests/test_plot_annotations.py
+$ ./caltech-scripts/test_plot_annotations.py
 ```
 
 ### 3. Create VOC2007 format dataset
@@ -36,7 +36,7 @@ $ ./tests/test_plot_annotations.py
 Convert images to VOC2007 format dataset.
 
 ```
-$ ./voc/convert_to_voc.py --anno [annotations.json path] --images [images path] --dst [voc save path] --dataset [dataset type]
+$ ./voc2007-converter/converter.py --anno [annotations.json path] --images [images path] --dst [voc save path] --dataset [dataset type]
 ```
 
 * config your properties for VOC2007 annotations and train and test sets in `config.py`.
@@ -48,5 +48,5 @@ Copy other dir from VOC2007 like: `local`, `results`...
 
 ## Notice
 
-`./voc/config.py` is a configure file for different dataset.
-`./voc/filter.py` can add yourself filter for different interesting objects.
+`./voc2007-converter/config.py` is a configure file for different dataset.
+`./voc2007-converter/filter.py` can add yourself filter for different interesting objects.
