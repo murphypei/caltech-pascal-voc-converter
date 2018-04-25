@@ -40,6 +40,9 @@ for dname in sorted(glob.glob('data/annotations/set*')):
             # print("frame_id: {}".format(frame_id))
             if len(obj) > 0:
                 # print(len(obj[0]))
+                ### different between data-USA and data-INRIA annotations.
+                # data-USA: id, pos, occl, lock, posv
+                # data-INRIA: id, pos, posv, occl, lock
                 for id, pos, posv, occl, lock in obj[0]:
                     #print(id)
                     #print(pos)
