@@ -38,8 +38,10 @@ def _createObjectNode(doc, attrs):
     object_node = doc.createElement('object')
     _createChildNode(doc, 'name', attrs['classification'], object_node)
     _createChildNode(doc, 'pose', annotation_config["pose"], object_node)
-    _createChildNode(doc, 'truncated', annotation_config["truncated"], object_node)
-    _createChildNode(doc, 'difficult', annotation_config["difficult"], object_node)
+    _createChildNode(doc, 'truncated',
+                     annotation_config["truncated"], object_node)
+    _createChildNode(doc, 'difficult',
+                     annotation_config["difficult"], object_node)
 
     bndbox_node = doc.createElement('bndbox')
     _createChildNode(doc, 'xmin', attrs['xmin'], bndbox_node)
@@ -82,15 +84,18 @@ def _createXMLFile(attrs, width, height, filename):
     root_node = doc.documentElement
 
     # create folder node
-    _createChildNode(doc, 'folder', annotation_config["folder_node"], root_node)
+    _createChildNode(
+        doc, 'folder', annotation_config["folder_node"], root_node)
 
     # create filename node
     _createChildNode(doc, 'filename', attrs['name'], root_node)
 
     # create source node and it's childnode
     source_node = doc.createElement('source')
-    _createChildNode(doc, 'database', annotation_config["dataset"], source_node)
-    _createChildNode(doc, 'annotation', annotation_config["annotation"], source_node)
+    _createChildNode(
+        doc, 'database', annotation_config["dataset"], source_node)
+    _createChildNode(doc, 'annotation',
+                     annotation_config["annotation"], source_node)
     _createChildNode(doc, 'image', 'flickr', source_node)
     _createChildNode(doc, 'flickrid', 'NULL', source_node)
     root_node.appendChild(source_node)
@@ -105,11 +110,13 @@ def _createXMLFile(attrs, width, height, filename):
     size_node = doc.createElement('size')
     _createChildNode(doc, 'width', str(width), size_node)
     _createChildNode(doc, 'height', str(height), size_node)
-    _createChildNode(doc, 'depth', str(annotation_config["channel"]), size_node)
+    _createChildNode(doc, 'depth', str(
+        annotation_config["channel"]), size_node)
     root_node.appendChild(size_node)
 
     # create segmented node
-    _createChildNode(doc, 'segmented', annotation_config["segmented"], root_node)
+    _createChildNode(doc, 'segmented',
+                     annotation_config["segmented"], root_node)
 
     # create object node
     object_node = _createObjectNode(doc, attrs)
@@ -140,8 +147,9 @@ def create_annotations(train_annos, test_annos, voc_path, anno_config):
         attrs['classification'] = annotation_config["class"]
 
         # build xml file name
-        xml_file_name = os.path.join(anno_dir, (attrs['name'].split('.'))[0] + '.xml')
-        print ("process xml file: {}".format(xml_file_name))
+        xml_file_name = os.path.join(
+            anno_dir, (attrs['name'].split('.'))[0] + '.xml')
+        print("process xml file: {}".format(xml_file_name))
 
         # write to xml file
         if os.path.exists(xml_file_name):

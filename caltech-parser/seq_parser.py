@@ -6,9 +6,6 @@ import glob
 import cv2 as cv
 import struct
 
-
-
-
 def seq_to_images(dname,path):
     def read_header(ifile):
         feed = ifile.read(4)
@@ -54,18 +51,11 @@ def seq_to_images(dname,path):
 
     return i
 
-
-
-
 def save_img(dname, fn, i, frame):
     #print("I am in")
     cv.imwrite('{}/{}_{}_{}.png'.format(
         out_dir, os.path.basename(dname),
         os.path.basename(fn).split('.')[0], i), frame)
-
-
-
-    
 
 out_dir = 'data/images'
 if not os.path.exists(out_dir):

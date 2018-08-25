@@ -6,8 +6,9 @@ create ImageSets dir: create Main dir, test.txt and trainval.txt
 
 import os
 
-
 # NOTED: This function will modify train_annos and test_annos
+
+
 def create_image_sets(train_annos, test_annos, voc_path):
 
         # make ImageSets dir

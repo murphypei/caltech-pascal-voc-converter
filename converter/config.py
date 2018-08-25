@@ -4,7 +4,7 @@
 configuration for different dataset
 '''
 
-from filter import caltech_reasonable_filter, eth_reasonable_filter
+from .filter import caltech_reasonable_filter, eth_reasonable_filter
 
 # for reasonable object
 caltech_reasonable_config = {

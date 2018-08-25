@@ -7,8 +7,8 @@ input caltech video dataset path, convert annotations and videos to images.
 
 import sys
 import os
-from convert_annotations import convert_annotations
-from convert_seqs import convert_seqs
+from .parser import annotation_parser
+from .parser import seq_parser
 
 if __name__ == "__main__":
 
@@ -22,5 +22,5 @@ if __name__ == "__main__":
             exit(-1)
     print("input dataset path: " + path)
 
-    convert_seqs(path)
-    convert_annotations(path)
+    seq_parser(path)
+    annotation_parser(path)

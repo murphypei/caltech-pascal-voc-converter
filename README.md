@@ -1,9 +1,9 @@
-# Caltech Pedestrian Dataset Converter to VOC2007 format for Faster R-CNN
+# Caltech Pedestrian Dataset Converter to Pascal VOC 2007 format for Faster R-CNN
 
 ## Requirements
 
 - OpenCV 2.4.13
-- Python3.4+,
+- Python 3.4+,
 - NumPy 1.10+
 - SciPy 0.16+
 
@@ -14,9 +14,9 @@
 Download caltech dataset, pick up images and annotations from videos.
 
 ```
-$ ./dataset-downloads/caltech-dataset-download.sh
-$ ./caltech-scripts/convert_annotations.py
-$ ./caltech-scripts/convert_seqs.py
+$ ./scripts/caltech-dataset-download.sh
+$ ./caltech-parser/parse_annotations.py
+$ ./caltech-parser/parse_seqs.py
 ```
 
 Each `.seq` video is separated into `.png` images. Each image's filename is consisted of `{set**}_{V***}_{frame_num}.png`. According to [the official site](http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/), `set06`~`set10` are for test dataset, while the rest are for training dataset.
@@ -28,7 +28,7 @@ Each `.seq` video is separated into `.png` images. Each image's filename is cons
 You can draw bounding boxes in the images and get a video for checking.
 
 ```
-$ ./caltech-scripts/test_plot_annotations.py
+$ ./scripts/test_plot_annotations.py
 ```
 
 ### 3. Create VOC2007 format dataset
@@ -36,7 +36,7 @@ $ ./caltech-scripts/test_plot_annotations.py
 Convert images to VOC2007 format dataset.
 
 ```
-$ ./voc2007-converter/converter.py --anno [annotations.json path] --images [images path] --dst [voc save path] --dataset [dataset type]
+$ ./converter/converter.py --anno [annotations.json path] --images [images path] --dst [voc save path] --dataset [dataset type]
 ```
 
 * config your properties for VOC2007 annotations and train and test sets in `config.py`.
@@ -48,5 +48,5 @@ Copy other dir from VOC2007 like: `local`, `results`...
 
 ## Notice
 
-`./voc2007-converter/config.py` is a configure file for different dataset.
-`./voc2007-converter/filter.py` can add yourself filter for different interesting objects.
+`./converter/config.py` is a configure file for different dataset.
+`./converter/filter.py` can add yourself filter for different interesting objects.

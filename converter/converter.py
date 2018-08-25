@@ -5,11 +5,12 @@
 
 import os
 import sys
-from parse_annotations_json import parse
-from create_image_sets import create_image_sets
-from create_jpeg_images import create_jpeg_images
-from create_annotations import create_annotations
-from config import caltech_reasonable_config, inria_config, eth_reasonable_config
+
+from .parse_annotations_json import parse
+from .create_image_sets import create_image_sets
+from .create_jpeg_images import create_jpeg_images
+from .create_annotations import create_annotations
+from .config import caltech_reasonable_config, inria_config, eth_reasonable_config
 
 import argparse
 
